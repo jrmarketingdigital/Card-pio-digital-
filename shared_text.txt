@@ -1,0 +1,69 @@
+# Cardápio Digital Simples em Python
+
+cardapio = {
+    "Entradas": {
+        "Bruschetta": {"preco": 15.0, "descricao": "Pão italiano com tomate, manjericão e azeite."},
+        "Salada Caprese": {"preco": 18.0, "descricao": "Tomate, mussarela de búfala e manjericão."}
+    },
+    "Pratos Principais": {
+        "Lasanha à Bolonhesa": {"preco": 35.0, "descricao": "Lasanha com molho de carne e queijo."},
+        "Risoto de Camarão": {"preco": 42.0, "descricao": "Arroz cremoso com camarões frescos."}
+    },
+    "Sobremesas": {
+        "Pudim": {"preco": 12.0, "descricao": "Pudim de leite condensado com calda de caramelo."},
+        "Tiramisu": {"preco": 16.0, "descricao": "Sobremesa italiana com café e mascarpone."}
+    },
+    "Bebidas": {
+        "Refrigerante": {"preco": 6.0, "descricao": "Coca-Cola, Guaraná, Fanta..."},
+        "Suco Natural": {"preco": 8.0, "descricao": "Suco de laranja, limão ou abacaxi."}
+    }
+}
+
+def exibir_menu():
+    while True:
+        print("\n=== CARDÁPIO DIGITAL ===")
+        categorias = list(cardapio.keys())
+        for i, categoria in enumerate(categorias, 1):
+            print(f"{i}. {categoria}")
+        print("0. Sair")
+
+        try:
+            escolha = int(input("Escolha uma categoria: "))
+            if escolha == 0:
+                print("Saindo do cardápio. Volte sempre!")
+                break
+            elif 1 <= escolha <= len(categorias):
+                categoria_selecionada = categorias[escolha - 1]
+                exibir_itens(categoria_selecionada)
+            else:
+                print("Opção inválida. Tente novamente.")
+        except ValueError:
+            print("Entrada inválida. Digite um número.")
+
+def exibir_itens(categoria):
+    itens = cardapio[categoria]
+    while True:
+        print(f"\n--- {categoria.upper()} ---")
+        nomes_itens = list(itens.keys())
+        for i, item in enumerate(nomes_itens, 1):
+            print(f"{i}. {item} - R$ {itens[item]['preco']:.2f}")
+        print("0. Voltar")
+
+        try:
+            escolha = int(input("Escolha um item para ver a descrição: "))
+            if escolha == 0:
+                break
+            elif 1 <= escolha <= len(nomes_itens):
+                item_selecionado = nomes_itens[escolha - 1]
+                descricao = itens[item_selecionado]["descricao"]
+                preco = itens[item_selecionado]["preco"]
+                print(f"\n{item_selecionado}")
+                print(f"Descrição: {descricao}")
+                print(f"Preço: R$ {preco:.2f}")
+            else:
+                print("Opção inválida. Tente novamente.")
+        except ValueError:
+            print("Entrada inválida. Digite um número.")
+
+# Executar o cardápio
+exibir_menu()
